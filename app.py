@@ -1,5 +1,5 @@
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
+import requests
 from snowflake.snowpark.functions import col
 
 # Title for the app
@@ -7,7 +7,8 @@ st.title("🎬 Movie Recommendations 🎬")
 st.write("Select your favorite genre, and we'll recommend some movies!")
 
 # Snowflake session
-session = get_active_session()
+cnx=st.connection("snowflake")
+session = cnx.session()
 
 # Fetch the available genres from the database
 genres_df = session.table("MOVIE_RECOMMENDATIONS.PUBLIC.MOVIE_OPTIONS").select(col("GENRE")).distinct().to_pandas()
