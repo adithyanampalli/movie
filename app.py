@@ -1,13 +1,14 @@
 import streamlit as st
 import requests
 from snowflake.snowpark.functions import col
+import pandas as pd
 
 # Title for the app
 st.title("🎬 Movie Recommendations 🎬")
 st.write("Select your favorite genre, and we'll recommend some movies!")
 
 # Snowflake session
-cnx=st.connection("snowflake")
+cnx = st.connection("snowflake")
 session = cnx.session()
 
 # Fetch the available genres from the database
